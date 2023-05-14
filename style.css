@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;700&display=swap');
+
+body {
+    font-family: 'Libre Franklin', sans-serif;
+    padding-top: 20px;
+}
+
+h1 {
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+
+}
+
+ul.letter-pair {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+ul.letter-pair li {
+    text-transform: uppercase;
+    font-size: 100px;
+    padding: 10px;
+    width: 100px;
+    background-color: #79a86b;
+    color: white;
+    line-height: 100px;
+    text-align: center;
+    height: 100px;
+    font-weight: 700;
+}
+
+ul.letter-pair li:first-child {
+    margin-right: 10px;
+}
+
+
+div.starting-words {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+div.starting-words button {
+    border: none;
+    outline: none;
+    padding: none;
+    margin: none;
+    background: none;
+    font-size: 18px;
+    color: black;
+    padding: 5px;
+}
+
+div.starting-words button:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    border-left: 5px solid transparent;
+    display: inline-block;
+    margin-left: 4px;
+    position: relative;
+    top: -2px;
+}
+
+div.starting-words.expanded button:after {
+    border-right: 5px solid transparent;
+    border-top: none;
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid black;
+
+}
+
+
+div.starting-words ul {
+    margin: 10px 0 0 10px;
+    padding: 0;
+    display: none;
+}
+
+div.starting-words ul li {
+    margin: 0;
+    padding: 0;
+}
+
+div.starting-words.expanded ul {
+    display: block;
+}
