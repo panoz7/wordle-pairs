@@ -1,14 +1,17 @@
 <?php
 
+date_default_timezone_set('America/New_York');
+
 $currentPairFile = "current-letter-pair.json";
 
 // Load all the possible wordle words
 $wordleWords = getWordleWords();
 
-// Get the current week number
+// Get the current week and day numbers
 $currentWeek = getWeekNum();
+$currentDay = getDayNum();
 
-// // Load the current letter pairs from the saved file
+// Load the current letter pairs from the saved file
 $letterPairs = getCurrentPairs();
 
 // If the saved week is different than the current week
@@ -18,9 +21,25 @@ if (!$letterPairs || $currentWeek != $letterPairs['weekNum']) {
     $letterPairs = genLetterPair($wordleWords);
     $letterPairs['weekNum'] = $currentWeek;
 
-    // Save it to the database
-    savePairs($letterPairs);
 }
+
+if (!isSet($letterPairs['dayNum']) || $letterPairs['dayNum'] != $currentDay) {
+    // Add the day num
+    $letterPairs['dayNum'] = $currentDay;
+
+    // Get the index for a random word in the matching words word list
+    $randomWordIndex = rand(0, count($letterPairs['matchingWords']) - 1);
+
+    // Remove the word from the matching words list
+    $todaysWord = array_splice($letterPairs['matchingWords'], $randomWordIndex, 1)[0];
+
+    // Add the word to the object
+    $letterPairs['word'] = $todaysWord;
+
+}
+
+// Update the database
+savePairs($letterPairs);
 
 // Output the results
 header('Content-type: application/json');
@@ -35,6 +54,19 @@ function getWeekNum($date = null) {
     return($dateTime->format("W"));
 }
 
+function getDayNum($date = null) {
+    // Build a date time object from the date string
+    $dateTime = new DateTime($date);
+
+    $dayNum = $dateTime->format('w');
+
+    if ($dayNum == 0) {
+        return(7);
+    }
+
+    return($dayNum);
+}
+
 function getWordleWords() {
     // Load the words
     $words = file_get_contents('words.txt');
@@ -42,6 +74,7 @@ function getWordleWords() {
     // Split them into an array
     return(explode("\n", $words));
 }
+
 
 function getPossibleWords($letter1, $letter2, $wordList) {
 
@@ -53,11 +86,21 @@ function getPossibleWords($letter1, $letter2, $wordList) {
 }
 
 function hasLetters($letter1, $letter2, $word) {
-    if (strpos($word, $letter1) !== false && strpos($word, $letter2) !== false) {
-        return true;
+
+    $letter1Pos = strpos($word, $letter1);
+    
+
+    if ($letter1Pos === false) {
+        return false;
     }
 
-   return false;
+    $letter2Pos = strpos($word, $letter2, $letter1Pos + 1);
+
+    if ($letter2Pos === false) {
+        return false;
+    }
+
+   return true;
 }
 
 function wordFilter($word) {

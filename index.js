@@ -1,6 +1,5 @@
 
 const apiUrl = 'api'
-console.log('here');
 setup();
 
 
@@ -14,9 +13,15 @@ async function setup() {
     // Update the week number in the UI 
     document.getElementById('week-num').innerHTML = pairData.weekNum;
 
+    // Update teh day number in the UI
+    document.getElementById('day-num').innerHTML = pairData.dayNum;
+
     // Add the letters in the UI
     document.getElementById('letter1').innerHTML = pairData.letter1;
     document.getElementById('letter2').innerHTML = pairData.letter2;
+
+    // Add today's word to the UI
+    addWord(pairData.word);
 
     // Add text to the expanding matching words button
     document.getElementById('match-count').innerHTML = pairData.matchingWords.length;
@@ -39,8 +44,15 @@ async function setup() {
 }
 
 
+function addWord(word) {
+    const ul = document.getElementById('todays-word');
 
-
+    for (let i = 0; i < word.length; i++) {
+        const li = document.createElement('li');
+        li.innerHTML = word[i];
+        ul.appendChild(li);
+    }
+}
 
 async function getPairData() {
     const response = await fetch('api');

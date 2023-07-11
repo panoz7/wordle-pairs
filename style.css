@@ -4,13 +4,43 @@
 body {
     font-family: 'Libre Franklin', sans-serif;
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px 0 70px 0;
 }
 
-h1 {
+div.content {
+    flex-grow: 1;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #eee;
+}
+
+footer a {
+    width: 100%;
+    max-width: 500px;
+    color: white;
+    background-color: #79a86b;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'Roboto Slab', serif;
+    padding: 10px;
+    margin: 0px auto;
+    box-sizing: border-box;
+}
+
+h1, h2 {
     font-size: 18px;
     text-align: center;
     font-family: 'Roboto Slab', serif;
-
 }
 
 ul.letter-pair {
@@ -32,10 +62,20 @@ ul.letter-pair li {
     text-align: center;
     height: 100px;
     font-weight: 700;
+    margin-right: 10px;
 }
 
-ul.letter-pair li:first-child {
-    margin-right: 10px;
+ul.letter-pair li:last-child {
+    margin-right: 0px;
+}
+
+ul#todays-word li {
+    font-size: 30px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    background-color: #999;
 }
 
 
