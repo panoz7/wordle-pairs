@@ -94,7 +94,9 @@ function hasLetters($letter1, $letter2, $word) {
         return false;
     }
 
-    $letter2Pos = strpos($word, $letter2, $letter1Pos + 1);
+    $word = substr_replace($word, '', $letter1Pos, 1);
+
+    $letter2Pos = strpos($word, $letter2);
 
     if ($letter2Pos === false) {
         return false;
