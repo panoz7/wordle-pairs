@@ -87,15 +87,18 @@ function getPossibleWords($letter1, $letter2, $wordList) {
 
 function hasLetters($letter1, $letter2, $word) {
 
+    // Check if the first letter is in the word
     $letter1Pos = strpos($word, $letter1);
     
-
     if ($letter1Pos === false) {
         return false;
     }
 
+    // Remove the first letter from the word
+    // We do this so if the second letter is the same as the first letter it won't find the same letter
     $word = substr_replace($word, '', $letter1Pos, 1);
 
+    // Check if the second letter is in the word
     $letter2Pos = strpos($word, $letter2);
 
     if ($letter2Pos === false) {
